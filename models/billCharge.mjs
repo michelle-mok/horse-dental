@@ -1,6 +1,6 @@
-export default function initReportModel(sequelize, DataTypes) {
+export default function initBillChargeModel(sequelize, DataTypes) {
   return sequelize.define(
-    'report',
+    'bill_charge',
     {
       id: {
         allowNull: false,
@@ -8,26 +8,25 @@ export default function initReportModel(sequelize, DataTypes) {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      report: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      horseId: {
+      chargeId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: 'horses',
+          model: 'charges',
           key: 'id',
         },
       },
-      // ownerId: {
-      //   allowNull: false,
-      //   type: DataTypes.INTEGER,
-      //   references: {
-      //     model: 'owners',
-      //     key: 'id',
-      //   },
-      // },
+      billId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'bills',
+          key: 'id',
+        },
+      },
+      quantity: {
+        type: DataTypes.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

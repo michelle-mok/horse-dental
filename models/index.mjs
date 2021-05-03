@@ -8,6 +8,8 @@ import initBillModel from './bill.mjs';
 import initHorseProblemReportModel from './horseProblemReport.mjs';
 import initProblemModel from './problem.mjs';
 import initReportModel from './report.mjs';
+import initChargeModel from './charge.mjs';
+import initBillChargeModel from './billCharge.mjs';
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -43,7 +45,9 @@ db.Bill = initBillModel(sequelize, Sequelize.DataTypes);
 db.Behaviour = initBehaviourModel(sequelize, Sequelize.DataTypes);
 db.Problem = initProblemModel(sequelize, Sequelize.DataTypes);
 db.Report = initReportModel(sequelize, Sequelize.DataTypes);
+db.Charge = initChargeModel(sequelize, Sequelize.DataTypes);
 db.HorseProblemReport = initHorseProblemReportModel(sequelize, Sequelize.DataTypes);
+db.BillCharge = initBillChargeModel(sequelize, Sequelize.DataTypes);
 
 db.Horse.belongsToMany(db.Behaviour, { through: 'horse_behaviours' });
 db.Behaviour.belongsToMany(db.Horse, { through: 'horse_behaviours' });
@@ -53,6 +57,9 @@ db.Problem.belongsToMany(db.Horse, { through: 'horse_problem_reports' });
 
 db.Report.belongsToMany(db.Problem, { through: 'horse_problem_reports' });
 db.Problem.belongsToMany(db.Report, { through: 'horse_problem_reports' });
+
+db.Bill.belongsToMany(db.Charge, { through: 'bill_charges' });
+db.Charge.belongsToMany(db.Bill, { through: 'bill_charges' });
 
 db.Owner.hasMany(db.Horse);
 db.Horse.belongsTo(db.Owner);
@@ -66,8 +73,8 @@ db.Bill.belongsTo(db.Owner);
 db.Horse.hasMany(db.Report);
 db.Report.belongsTo(db.Horse);
 
-db.Owner.hasMany(db.Report);
-db.Report.belongsTo(db.Owner);
+// db.Owner.hasMany(db.Report);
+// db.Report.belongsTo(db.Owner);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

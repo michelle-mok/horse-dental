@@ -1,28 +1,24 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const HorseList = ({
-  owner, horseList, ownerList, setHorse, setHorseDetails,
+  owner, horseList, ownerList, setHorse, setHorseList,
 }) => {
   const setHorseSelected = (horse, index) => {
     setHorse(index);
-
-    console.log('horse list', horseList);
     console.log('horse id', horseList[index].id);
+  };
+
+  useEffect(() => {
     axios
-      .post('/horse-details', {
-        id: horseList[index].id,
-      })
+      .get(`/horse-list/${ownerList[owner].id}`)
       .then((response) => {
-        console.log(response.data.horse);
-        setHorseDetails(response.data.horse);
+        setHorseList(response.data.horses);
       })
       .catch((error) => {
         console.log(error);
       });
-  };
-
-  console.log('owner index', owner);
+  }, []);
 
   return (
     <div className="horseList">

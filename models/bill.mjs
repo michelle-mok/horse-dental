@@ -24,10 +24,7 @@ export default function initBillModel(sequelize, DataTypes) {
           key: 'id',
         },
       },
-      gst: {
-        type: DataTypes.INTEGER,
-      },
-      charges: {
+      total: {
         type: DataTypes.DECIMAL,
       },
       createdAt: {

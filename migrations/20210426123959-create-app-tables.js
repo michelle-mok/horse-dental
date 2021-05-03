@@ -101,6 +101,31 @@ module.exports = {
       },
     });
 
+    await queryInterface.createTable('charges', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      price: {
+        allowNull: false,
+        type: Sequelize.DECIMAL,
+      },
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+
     await queryInterface.createTable('bills', {
       id: {
         allowNull: false,
@@ -124,11 +149,7 @@ module.exports = {
           key: 'id',
         },
       },
-      gst: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN,
-      },
-      total_charge: {
+      total: {
         allowNull: false,
         type: Sequelize.DECIMAL,
       },
@@ -157,14 +178,14 @@ module.exports = {
           key: 'id',
         },
       },
-      owner_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'owners',
-          key: 'id',
-        },
-      },
+      // owner_id: {
+      //   allowNull: false,
+      //   type: Sequelize.INTEGER,
+      //   references: {
+      //     model: 'owners',
+      //     key: 'id',
+      //   },
+      // },
       report: {
         allowNull: false,
         type: Sequelize.STRING,
@@ -189,6 +210,43 @@ module.exports = {
       name: {
         allowNull: false,
         type: Sequelize.STRING,
+      },
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+
+    await queryInterface.createTable('bill_charges', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      charge_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'charges',
+          key: 'id',
+        },
+      },
+      quantity: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      bill_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'bills',
+          key: 'id',
+        },
       },
       created_at: {
         allowNull: false,
@@ -251,10 +309,6 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-      },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING,
       },
       horse_id: {
         allowNull: false,
@@ -320,8 +374,10 @@ module.exports = {
   down: async (queryInterface) => {
     // await queryInterface.dropTable('horse_owners', null, {});
     await queryInterface.dropTable('horse_behaviours', null, {});
-    await queryInterface.dropTable('horse_problems', null, {});
+    await queryInterface.dropTable('horse_problems_reports', null, {});
+    await queryInterface.dropTable('bill_charges', null, {});
     await queryInterface.dropTable('bills', null, {});
+    await queryInterface.dropTable('charges', null, {});
     await queryInterface.dropTable('reports', null, {});
     await queryInterface.dropTable('behaviours', null, {});
     await queryInterface.dropTable('problems', null, {});

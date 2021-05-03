@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 
-const OwnerList = ({ ownerList, setOwner, setHorseList }) => {
+const OwnerList = ({ ownerList, setOwner }) => {
   const [selectedOwnerIndex, setSelectedOwnerIndex] = useState();
 
   const setOwnerSelected = (owner, index) => {
@@ -9,17 +9,6 @@ const OwnerList = ({ ownerList, setOwner, setHorseList }) => {
     console.log('index of selected owner', index);
     setOwner(index);
     setSelectedOwnerIndex(index);
-
-    axios
-      .post('/horse-list', {
-        id: ownerList[index].id,
-      })
-      .then((response) => {
-        setHorseList(response.data.horses);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (

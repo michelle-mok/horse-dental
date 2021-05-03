@@ -142,7 +142,7 @@ module.exports = {
     await queryInterface.bulkInsert('behaviours', behaviourData);
 
     // Define cart item data, i.e. put items in cart
-    const ProblemData = [
+    const problemData = [
       {
         name: 'tooth decay',
         created_at: new Date(),
@@ -170,19 +170,115 @@ module.exports = {
       },
     ];
 
-    await queryInterface.bulkInsert('problems', ProblemData);
-  },
+    await queryInterface.bulkInsert('problems', problemData);
 
+    const reportData = [
+      {
+        horse_id: 1,
+        report: 'rasped teeth, sharp points',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        horse_id: 2,
+        report: 'rasped teeth, cuts inside mouth',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        horse_id: 3,
+        report: 'rasped teeth, removed wolf teeth',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        horse_id: 4,
+        report: 'rasped teeth, good condition',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    ];
+
+    await queryInterface.bulkInsert('reports', reportData);
+
+    const horseBehaviourData = [
+      {
+        horse_id: 1,
+        behaviour_id: 2,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        horse_id: 1,
+        behaviour_id: 5,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        horse_id: 2,
+        behaviour_id: 3,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        horse_id: 3,
+        behaviour_id: 6,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        horse_id: 4,
+        behaviour_id: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    ];
+
+    await queryInterface.bulkInsert('horse_behaviours', horseBehaviourData);
+
+    const chargeData = [
+      {
+        name: 'basic charge',
+        price: 80,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        name: 'removal of wolf teeth',
+        price: 20,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        name: 'removal of caps',
+        price: 10,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        name: 'reduction of hooks',
+        price: 20,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    ];
+
+    await queryInterface.bulkInsert('charges', chargeData);
+  },
   down: async (queryInterface) => {
     // Delete rows from tables with foreign key references first
     await Promise.all([
-      queryInterface.bulkDelete('horses', null, {}),
+
+      queryInterface.bulkDelete('horse_behaviours', null, {}),
+      queryInterface.bulkDelete('reports', null, {}),
 
     ]);
     await Promise.all([
+      queryInterface.bulkDelete('horses', null, {}),
       queryInterface.bulkDelete('owners', null, {}),
       queryInterface.bulkDelete('behaviours', null, {}),
       queryInterface.bulkDelete('problems', null, {}),
+
     ]);
   },
 };
