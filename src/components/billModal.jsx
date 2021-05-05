@@ -5,7 +5,6 @@ const BillModal = ({
   trigger, setTrigger, horseList, horse, ownerList, owner,
 }) => {
   const [chargeList, setChargeList] = useState([]);
-  const [newBillItem, setNewBillItem] = useState();
   const [billItems, setBillItems] = useState([]);
 
   useEffect(() => {
@@ -21,12 +20,7 @@ const BillModal = ({
   }, []);
 
   const setChargeSelected = (charge, index) => {
-    setNewBillItem({ ...chargeList[index], qty: 1 });
-    console.log('new bill item', newBillItem);
-
-    if (newBillItem !== undefined) {
-      setBillItems([...billItems, newBillItem]);
-    }
+    setBillItems([...billItems, { ...chargeList[index], qty: 1 }]);
   };
 
   const BillItem = ({
@@ -57,6 +51,7 @@ const BillModal = ({
         </div>
         <div>
           Total:
+          $
           {qty * price}
         </div>
       </div>
@@ -98,19 +93,24 @@ const BillModal = ({
 
     console.log('charges', charges);
     return (
-      <div className="new-bill">
-        <h3>New Bill</h3>
-        <div>
-          {charges.map((item) => (
-            <BillItem key={item.id} updateQty={updateQty} {...item} />
-          ))}
+      <>
+        <h3 id="new-bill-header">New Bill</h3>
+        <div className="new-bill">
+
+          <div>
+            {charges.map((item) => (
+              <BillItem key={item.id} updateQty={updateQty} {...item} />
+            ))}
+          </div>
+          <br />
+          <div id="grand-total">
+            Grand Total: $
+            {grandTotal}
+          </div>
+          <br />
+          <button type="button" className="btn btn-dark" id="submit-bill" onClick={submitBill}>submit bill</button>
         </div>
-        <div>
-          Grand Total: $
-          {grandTotal}
-        </div>
-        <button type="button" className="btn btn-dark" onClick={submitBill}>submit bill</button>
-      </div>
+      </>
     );
   };
 

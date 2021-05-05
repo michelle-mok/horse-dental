@@ -17,6 +17,14 @@ export default function initHorseModel(sequelize, DataTypes) {
       trainer: {
         type: DataTypes.STRING,
       },
+      ownerId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'horses',
+          key: 'id',
+        },
+      },
       nextTreatmentDate: {
         allowNull: false,
         type: DataTypes.DATE,

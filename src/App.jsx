@@ -20,7 +20,7 @@ export default function App() {
   return (
     <div className="container">
       {owner === undefined && (
-      <OwnerList ownerList={ownerList} setOwner={setOwner} setHorseList={setHorseList} />
+      <OwnerList ownerList={ownerList} setOwner={setOwner} setHorseList={setHorseList} setOwnerList={setOwnerList} />
       )}
       {owner !== undefined && horse === undefined && (
       <HorseList owner={owner} ownerList={ownerList} horseList={horseList} setHorse={setHorse} setHorseDetails={setHorseDetails} setHorseList={setHorseList} />

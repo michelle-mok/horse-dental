@@ -12,16 +12,27 @@ body {
 }
 
 .report-modal,
-.bill-modal {
+.bill-modal,
+.alert-modal,
+.new-owner-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.close-btn {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 6px;
+  margin: 0 3px;
+  border: None;
 }
 
 .modal-content {
@@ -35,4 +46,121 @@ body {
   position: absolute;
   top: 16px;
   right: 16px;
+}
+
+.bill-item {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bill-item div {
+  width: 30%;
+}
+
+.bill-item button {
+  width: 30px;
+  height: 30px;
+  background-color: lightblue;
+  border-radius: 6px;
+  margin: 0 3px;
+  border: None;
+}
+
+.new-bill {
+  border: solid lightgray 1px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+#submit-bill {
+  align-self: flex-end;
+  margin: 10px;
+}
+
+#grand-total {
+  align-self: flex-end;
+  padding-right: 12px;
+}
+#new-bill-header {
+  margin-top: 20px;
+}
+
+.horse-behaviours {
+  padding: 20px;
+  margin: 10px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.horse-details {
+  width: 80%;
+}
+
+#behaviour-button {
+  background-color: rgb(255, 196, 0);
+}
+
+.horse-details h3 {
+  text-align: center;
+  border-bottom: solid lightgray 1px;
+  padding: 10px;
+}
+
+#report {
+  width: 100%;
+}
+
+.horse-reports {
+  padding-top: 20px;
+  width: 100%;
+  height: 300px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.ownerList {
+  width: 80%;
+}
+
+.ownerList h3 {
+  text-align: center;
+  border-bottom: solid lightgray 1px;
+  padding: 10px;
+}
+
+#owners {
+  width: 100%;
+  padding-top: 20px;
+}
+
+.horseList {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#horses {
+  width: 100%;
+  padding-top: 20px;
+}
+
+.horseList h3 {
+  text-align: center;
+  border-bottom: solid lightgray 1px;
+  padding: 10px;
 }

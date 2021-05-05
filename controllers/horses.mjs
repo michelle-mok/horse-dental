@@ -109,7 +109,63 @@ export default function initHorsesController(db) {
     }
   };
 
+  const alerts = async (req, res) => {
+    const behaviours = await db.Behaviour.findAll();
+    console.log('alert list', behaviours);
+
+    res.send({ behaviours });
+  };
+
+  const editBehaviour = async (req, res) => {
+    console.log('req body edit behaviours', req.body);
+    // const newBehaviours = await db.Horse.addBehaviours
+    try {
+      const horse = await db.Horse.findOne({
+        where: {
+          id: Number(req.body.horseId),
+        },
+      });
+      console.log('horse', horse);
+
+      const behaviours = await horse.getBehaviours();
+      console.log(behaviours);
+
+      const deleteBehaviours = await horse.removeBehaviours(behaviours);
+      console.log('deleted behaviours', deleteBehaviours);
+
+      const addNewBehaviours = await horse.addBehaviours(req.body.behaviours);
+      console.log('new behaviours', addNewBehaviours);
+
+      const newBehaviours = await horse.getBehaviours();
+      console.log('new behaviours', newBehaviours);
+      res.send({ newBehaviours });
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
+
+  const newHorse = async (req, res) => {
+    console.log('horse details ******', req.body);
+    console.log('owner id', req.params.id);
+    try {
+      const addHorse = await db.Horse.create({
+        name: req.body.name,
+        mraNumber: req.body.mraNumber,
+        trainer: req.body.trainer,
+        nextTreatmentDate: req.body.nextTreatmentDate,
+        ownerId: req.params.id,
+      });
+      console.log('new horse *****', addHorse);
+
+      res.send({ addHorse });
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
-    horseList, horseDetails, horseProblems, addNewReport,
+    horseList, horseDetails, horseProblems, addNewReport, alerts, editBehaviour, newHorse,
   };
 }

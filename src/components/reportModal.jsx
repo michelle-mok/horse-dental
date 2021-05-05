@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const ReportModal = ({
-  trigger, setTrigger, horseList, horse, setHorseReports,
+  trigger, setTrigger, horseList, horse, setHorseReports, horseReports,
 }) => {
   const [problems, setProblems] = useState([]);
   const [currentReport, setCurrentReport] = useState('');
@@ -16,8 +16,10 @@ const ReportModal = ({
         horseId: horseList[horse].id,
       })
       .then((response) => {
-        console.log(response.data);
-        setHorseReports();
+        console.log('horse reports, ', horseReports);
+        console.log(response.data.newReport);
+        setTrigger(false);
+        setHorseReports([...horseReports, response.data.newReport]);
       })
       .catch((error) => error);
   };
@@ -41,7 +43,7 @@ const ReportModal = ({
           <textarea rows="5" cols="60" placeholder="enter details here..." name="report" value={currentReport} onChange={(event) => { setCurrentReport(event.target.value); }} />
           <br />
 
-          <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+          {/* <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
             {problems.map((problem) => (
               <>
                 <input type="checkbox" className="btn-check" id={problem.id} value={problem.id} autoComplete="off" />
@@ -49,7 +51,7 @@ const ReportModal = ({
               </>
             ))}
           </div>
-          <br />
+          <br /> */}
           <button type="button" className="btn btn-dark" onClick={addCurrentReport}>Submit </button>
         </div>
       </div>

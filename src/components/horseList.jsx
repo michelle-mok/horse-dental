@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import NewHorseModal from './newHorseModal.jsx';
 
 const HorseList = ({
-  owner, horseList, ownerList, setHorse, setHorseList,
+  owner, horseList, ownerList, setHorse, setHorseList, horseReports, setHorseReports,
 }) => {
+  const [showNewHorseModal, setShowNewHorseModal] = useState(false);
+
   const setHorseSelected = (horse, index) => {
     setHorse(index);
     console.log('horse id', horseList[index].id);
@@ -28,7 +31,7 @@ const HorseList = ({
         {' '}
         {ownerList[owner].lastName}
       </h3>
-      <ul className="list-group">
+      <ul className="list-group" id="horses">
         {horseList.map((horse, index) => (
           <button type="button" className="list-group-item list-group-item-action" key={horse.id} onClick={() => setHorseSelected(horse, index)}>
             {horse.name}
@@ -38,6 +41,9 @@ const HorseList = ({
           </button>
         ))}
       </ul>
+      <br />
+      <button type="button" className="btn btn-dark" onClick={() => setShowNewHorseModal(true)}>Add new horse</button>
+      <NewHorseModal trigger={showNewHorseModal} setTrigger={setShowNewHorseModal} ownerList={ownerList} owner={owner} horseList={horseList} setHorseList={setHorseList} horseReports={horseReports} setHorseReports={setHorseReports} />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReportModal from './reportModal.jsx';
 import BillModal from './billModal.jsx';
+import AlertModal from './alertModal.jsx';
 
 const HorseDetails = ({
   horseDetails, horse, horseList, setHorseDetails, owner, ownerList,
@@ -10,7 +11,7 @@ const HorseDetails = ({
 
   const [horseReports, setHorseReports] = useState([]);
   const [showReportModal, setShowReportModal] = useState(false);
-
+  const [showAlertModal, setShowAlertModal] = useState(false);
   const [showBillModal, setShowBillModal] = useState(false);
 
   console.log('horse id', horseList[horse].id);
@@ -58,27 +59,30 @@ const HorseDetails = ({
       <div className="horse-behaviours">
         <ul className="list-group list-group-horizontal">
           {horseBehaviour.map((behaviour, index) => (
-            <li key={behaviour.id} className="list-group-item">{behaviour.name}</li>
+            <li key={behaviour.id} className="list-group-item" id="behaviour-button">{behaviour.name}</li>
           ))}
         </ul>
-        <button type="button" className="btn btn-dark">Add Alert</button>
+        <br />
+        <button type="button" className="btn btn-dark" onClick={() => setShowAlertModal(true)}>Add Alert</button>
+        <AlertModal trigger={showAlertModal} setTrigger={setShowAlertModal} horse={horse} horseList={horseList} setHorseBehaviour={setHorseBehaviour} horseBehaviour={horseBehaviour} />
       </div>
       <div div className="horse-reports">
-        <ul className="list-group list-group-flush">
+        <ul className="list-group list-group-flush" id="report">
           {horseReports.map((report) => (
             <li className="list-group-item">{report.report}</li>
           ))}
         </ul>
-        <button type="button" className="btn btn-dark" onClick={() => setShowReportModal(true)}>Add new report</button>
-        <ReportModal trigger={showReportModal} setTrigger={setShowReportModal} horse={horse} horseList={horseList} setHorseReports={setHorseReports} />
-      </div>
-      <div>
-        <button type="button" className="btn btn-dark" onClick={() => { setShowBillModal(true); }}>Create new bill</button>
-        <BillModal trigger={showBillModal} setTrigger={setShowBillModal} horse={horse} horseList={horseList} owner={owner} ownerList={ownerList} />
-      </div>
+        <br />
+        <div id="buttons">
+          <button type="button" className="btn btn-dark" onClick={() => setShowReportModal(true)}>Add new report</button>
+          <ReportModal trigger={showReportModal} setTrigger={setShowReportModal} horse={horse} horseList={horseList} setHorseReports={setHorseReports} />
 
+          <button type="button" className="btn btn-dark" onClick={() => { setShowBillModal(true); }}>Create new bill</button>
+          <BillModal trigger={showBillModal} setTrigger={setShowBillModal} horse={horse} horseList={horseList} owner={owner} ownerList={ownerList} />
+        </div>
+
+      </div>
     </div>
-
   );
 };
 

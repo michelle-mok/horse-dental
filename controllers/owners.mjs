@@ -10,5 +10,27 @@ export default function initOwnersController(db) {
     }
   };
 
-  return { ownerList };
+  const newOwner = async (req, res) => {
+    console.log('new owner', req.body);
+
+    try {
+      const addOwner = await db.Owner.create({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        email: req.body.email,
+        phoneNumber: Number(req.body.phoneNumber),
+        gst: req.body.gst,
+      });
+      console.log('added owner', addOwner);
+
+      const newOwnerList = await db.Owner.findAll();
+
+      res.send({ newOwnerList });
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
+  return { ownerList, newOwner };
 }

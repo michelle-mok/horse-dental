@@ -16,6 +16,10 @@ export default function routes(app) {
   app.post('/add-new-report', HorsesController.addNewReport);
   app.get('/charges', BillsController.chargeList);
   app.post('/new-bill', BillsController.addBill);
+  app.get('/behaviours', HorsesController.alerts);
+  app.post('/edit-alerts', HorsesController.editBehaviour);
+  app.post('/add-new-owner', OwnersController.newOwner);
+  app.post('/add-new-horse/:id', HorsesController.newHorse);
 
   // special JS page. Include the webpack index.html file
   app.get('/home', (request, response) => {
